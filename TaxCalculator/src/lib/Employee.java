@@ -9,52 +9,16 @@ public class Employee {
 	private PersonalInfo personalInfo;
 	private PersonalInfo person
 	private Family family;
-
-	private int monthlySalary;
-	private int otherMonthlyIncome;
-	private int annualDeductible;
+	private Salary salary;
 	
-	public Employee(PersonalInfo personalInfo, PersonalInfo person , Family family) {
+	public Employee(PersonalInfo personalInfo, PersonalInfo person , Family family, Salary salary) {
 		this.personalInfo = personalInfo;
 		this.person = person;
 		this.family = family;
-	}
-	
-	/**
-	 * Fungsi untuk menentukan gaji bulanan pegawai berdasarkan grade kepegawaiannya (grade 1: 3.000.000 per bulan, grade 2: 5.000.000 per bulan, grade 3: 7.000.000 per bulan)
-	 * Jika pegawai adalah warga negara asing gaji bulanan diperbesar sebanyak 50%
-	 */
-	
-	public void setMonthlySalary(int grade) {
-		switch (grade){
-			case 1:
-				monthlySalary = 3000000;
-				break;
-			case 2:
-				monthlySalary = 5000000;
-				break;
-			case 3:
-				monthlySalary = 7000000;
-				break;
-			default:
-				throw new IllegalArgumentException("Invalid grade: " + grade);
-		}
-
-		if (isForeigner){
-			monthlySalary = (int) (monthlySalary * 1.5);
-		} 
-	}
-	
-	public void setAnnualDeductible(int deductible) {	
-		this.annualDeductible = deductible;
-	}
-	
-	public void setAdditionalIncome(int income) {	
-		this.otherMonthlyIncome = income;
+		this.salary = salary;
 	}
 	
 	public int getAnnualIncomeTax() {
-		
 		//Menghitung berapa lama pegawai bekerja dalam setahun ini, jika pegawai sudah bekerja dari tahun sebelumnya maka otomatis dianggap 12 bulan.
 		LocalDate currentDate = LocalDate.now();
 		int monthsWorked = 12;
