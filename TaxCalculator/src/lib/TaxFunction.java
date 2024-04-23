@@ -14,31 +14,48 @@ public class TaxFunction {
 	 * 
 	 */
 	
-	
-	public static int calculateTax(int monthlySalary, int otherMonthlyIncome, int numberOfMonthWorking, int deductible, boolean isMarried, int numberOfChildren) {
+	private static final int MAX_CHILDREN = 3;
+	private static final double TAX_RATE = 0.05;
+
+	public static int calculateTax(double monthlySalary, double otherMonthlyIncome, int numberOfMonthsWorking, double deductible, boolean isMarried, int numberOfChildren) {
 		
-		int tax = 0;
-		
-		if (numberOfMonthWorking > 12) {
+		if (numberOfMonthsWorking > 12) {
 			System.err.println("More than 12 month working per year");
-		}
-		
-		if (numberOfChildren > 3) {
-			numberOfChildren = 3;
-		}
-		
-		if (isMarried) {
-			tax = (int) Math.round(0.05 * (((monthlySalary + otherMonthlyIncome) * numberOfMonthWorking) - deductible - (54000000 + 4500000 + (numberOfChildren * 1500000))));
-		}else {
-			tax = (int) Math.round(0.05 * (((monthlySalary + otherMonthlyIncome) * numberOfMonthWorking) - deductible - 54000000));
-		}
-		
-		if (tax < 0) {
 			return 0;
-		}else {
-			return tax;
 		}
-			 
+		
+		// Menghitung penghasilan yang tidak kena pajak berdasarkan status perkawinan dan jumlah anak
+		double nonTaxableIncome = calculateNonTaxableIncome(isMarried, numberOfChildren);
+		
+		// Menghitung penghasilan kena pajak
+		double taxableIncome = calculateTaxableIncome(monthlySalary, otherMonthlyIncome, numberOfMonthsWorking, deductible, nonTaxableIncome);
+		
+		// Calculate tax amount
+		int taxAmount = calculateTaxAmount(taxableIncome);
+		
+		return taxAmount;
 	}
 	
+	private static double calculateNonTaxableIncome(boolean isMarried, int numberOfChildren) {
+		double nonTaxableIncome = 0;
+		if (isMarried) {
+			nonTaxableIncome += 2_000_000;
+		} else {
+			nonTaxableIncome += 1_000_000;
+		}
+		nonTaxableIncome += numberOfChildren * 500_000;
+		nonTaxableIncome *= 12;
+		return nonTaxableIncome;
+	}
+	
+	private static double calculateTaxableIncome(double monthlySalary, double otherMonthlyIncome, int numberOfMonthsWorking, double deductible, double nonTaxableIncome) {
+		double totalIncome = (monthlySalary + otherMonthlyIncome) * numberOfMonthsWorking;
+		totalIncome -= deductible;
+		totalIncome -= nonTaxableIncome;
+		return totalIncome;
+	}
+	
+	private static int calculateTaxAmount(double taxableIncome) {
+		return (int) Math.ceil(taxableIncome * TAX_RATE);
+	}
 }
