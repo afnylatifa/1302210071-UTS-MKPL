@@ -21,7 +21,7 @@ public class PersonalInfo {
 	private boolean isForeigner;
 	private Gender gender; //true = Laki-laki, false = Perempuan
 	
-	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, LocalDate dateJoined, boolean isForeigner, Gender gender) {
+	public PersonalInfo(String employeeId, String firstName, String lastName, String idNumber, String address, LocalDate dateJoined, boolean isForeigner, Gender gender) {
 		this.employeeId = employeeId;
 		this.firstName = firstName;
 		this.lastName = lastName;
