@@ -6,35 +6,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Employee {
-	public enum Gender{
-		Man,
-		Woman
-	}
+	private PersonalInfo personalInfo;
+	private PersonalInfo person
+	private Family family;
 
-	private String employeeId;
-	private String firstName;
-	private String lastName;
-	private String idNumber;
-	private String address;
-	
-	private LocalDate dateJoined;
-	
-	private boolean isForeigner;
-	private Gender gender; //true = Laki-laki, false = Perempuan
-	
 	private int monthlySalary;
 	private int otherMonthlyIncome;
 	private int annualDeductible;
 	
-	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, LocalDate dateJoined, boolean isForeigner, Gender gender) {
-		this.employeeId = employeeId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.idNumber = idNumber;
-		this.address = address;
-		this.dateJoined = dateJoined;
-		this.isForeigner = isForeigner;
-		this.gender = gender;
+	public Employee(PersonalInfo personalInfo, PersonalInfo person , Family family) {
+		this.personalInfo = personalInfo;
+		this.person = person;
+		this.family = family;
 	}
 	
 	/**
